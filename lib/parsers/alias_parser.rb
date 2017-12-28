@@ -9,12 +9,13 @@ module KMExport
     data_output = IO.open(IO.sysopen(new_filename, "w"), "w")
 
     until input.eof?
-      line = JSON.parse(input.readline)
+      original_line = input.readline
+      line = JSON.parse(original_line)
       if line["_p2"]
-        alias_output.write(JSON.generate(line))
+        alias_output.write(original_line)
         alias_output.write("\n")
       else
-        data_output.write(JSON.generate(line))
+        data_output.write(original_line)
         data_output.write("\n")
       end
     end
