@@ -6,10 +6,13 @@ module KMExport
     until input.eof?
       result << JSON.parse(input.readline)
     end
-     
-    output = File.open(Time.now.to_i.to_s + "_STANDARD.json", "w+")
-     
+
+    new_filename = Time.now.to_i.to_s + "_STANDARD.json"
+    output = File.open(new_filename, "w+")
+
     output.write(JSON.pretty_generate(result))
     output.close
+
+    puts "Created formatted JSON file: #{new_filename}"
   end
 end

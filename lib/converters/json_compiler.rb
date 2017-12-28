@@ -12,5 +12,7 @@ module KMExport
         output.write(input.readline)
       end
     end
+
+    puts "Finished combining all KISSmetrics JSON files into #{filename}"
   end
 end
