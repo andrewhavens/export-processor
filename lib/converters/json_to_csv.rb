@@ -4,7 +4,7 @@ module KMExport
     csv_filename = Time.now.to_i.to_s + "_converter_result.csv"
     input = IO.open(IO.sysopen(jsonfile))
     output = CSV.open(csv_filename, "w+")
-    
+
     until input.eof?
       headers = headers | JSON.parse(input.readline).keys
     end
@@ -20,5 +20,7 @@ module KMExport
       end
       output << row_result.values
     end
+
+    puts "Finished creating CSV file: #{csv_filename}"
   end
 end

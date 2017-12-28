@@ -1,8 +1,9 @@
 module KMExport
   def self.identity_parser(jsonfile, identity)
     input = IO.open(IO.sysopen(jsonfile))
-    output_filename = Time.now.to_i.to_s + "_" + identity + "_results.json"
-    new_filename = Time.now.to_i.to_s + "_result.json"
+    time_now = Time.now.to_i.to_s
+    output_filename = "#{time_now}_#{identity}_results.json"
+    new_filename = "#{time_now}_result.json"
     File.open(output_filename, "w+").close
     File.open(new_filename, "w+").close
     identity_output = IO.open(IO.sysopen(output_filename, "w"), "w")
@@ -21,6 +22,12 @@ module KMExport
     end
 
     input.close
+    identity_output.close
+    data_output.close
+    puts "Finished moving actions by #{identity} to: #{output_filename}"
+    puts "Created new file with these actions removed: #{new_filename}"
+
     File.delete(jsonfile)
+    puts "Deleted original file: #{jsonfile}"
   end
 end
