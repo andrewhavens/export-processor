@@ -14,7 +14,12 @@ class JSONQueue < Queue
 
   def add_to_queue
     100.times do
-      self << JSON.parse(@io.readline)
+      begin
+        line = @io.readline
+        self << JSON.parse(line)
+      rescue JSON::ParserError
+        puts "JSON::ParserError while reading line: #{line}"
+      end
     end
     @counter += 100
     puts "Adding 100 lines to queue, #{@counter} so far"
